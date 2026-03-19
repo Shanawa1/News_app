@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Latest News</title>
+  <style>
+    body {
+      font-family: Arial;
+      background: #f4f4f4;
+      margin: 0;
+    }
+
+    header {
+      background: #222;
+      color: white;
+      padding: 15px;
+      text-align: center;
+      font-size: 24px;
+    }
+
+    form {
+      text-align: center;
+      margin: 20px;
+    }
+
+    input {
+      padding: 10px;
+      width: 250px;
+    }
+
+    button {
+      padding: 10px;
+      background: #007BFF;
+      color: white;
+      border: none;
+    }
+
+    .container {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 15px;
+      padding: 20px;
+    }
+
+    .card {
+      background: white;
+      padding: 15px;
+      border-radius: 10px;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    img {
+      width: 100%;
+      border-radius: 10px;
+    }
+
+    a {
+      display: inline-block;
+      margin-top: 10px;
+      color: blue;
+    }
+  </style>
+</head>
+
+<body>
+
+<header>📰 Latest News</header>
+
+<form method="get">
+  <input type="text" name="q" placeholder="Search news...">
+  <button type="submit">Search</button>
+</form>
+
+<div class="container">
+  {% for article in articles %}
+  <div class="card">
+    <h3>{{ article.title }}</h3>
+
+    {% if article.urlToImage %}
+      <img src="{{ article.urlToImage }}">
+    {% endif %}
+
+    <p>{{ article.description }}</p>
+
+    <a href="{{ article.url }}" target="_blank">Read More</a>
+
+    <!-- COMMENT FORM -->
+    <form method="post">
+      <input type="hidden" name="title" value="{{ article.title }}">
+      <input type="text" name="comment" placeholder="Write comment..." required>
+      <button type="submit">Post</button>
+    </form>
+
+    <!-- SHOW COMMENTS -->
+    <div>
+      {% for c in comments %}
+        {% if c[1] == article.title %}
+          <p>💬 {{ c[2] }}</p>
+        {% endif %}
+      {% endfor %}
+    </div>
+
+  </div>
+{% endfor %}
+
+<div style="text-align:center; margin: 20px;">
+  <a href="/?category=general"><button>General</button></a>
+  <a href="/?category=sports"><button>Sports</button></a>
+  <a href="/?category=technology"><button>Technology</button></a>
+  <a href="/?category=business"><button>Business</button></a>
+  <a href="/?category=health"><button>Health</button></a>
+</div>
+
+</div>
+
+</body>
+</html>
