@@ -36,6 +36,7 @@ def home():
 
     response = requests.get(url)
     data = response.json()
+    print(data) # DEBUG
     articles = data.get("articles", [])
 
     # Save comment
