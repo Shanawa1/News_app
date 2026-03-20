@@ -4,7 +4,7 @@ import sqlite3
 
 app = Flask(__name__)
 
-API_KEY = "cc706f96354e40c3bfea70e3d29b762"
+API_KEY = "cc706f96354e40c3bfea70e3d295b762"
 
 # Create DB
 def init_db():
